@@ -1,0 +1,291 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta name="keywords" content="AICAM, PICAM, ai, comercial, demo, sparkle, generator">
+	<meta name="description" content="A Commercial-Mission-Ready Artificial Intelligence">
+	<meta name="author" content="Luis Quintana (@Glidder_)">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:image"
+    content="TODO" />
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+	<title> AIBM </title>
+</head>
+
+<body role="document" style="background: rgba(181,11,224,1);
+background: -moz-linear-gradient(left, rgba(181,11,224,1) 0%, rgba(39,230,99,1) 100%);
+background: -webkit-gradient(left top, right top, color-stop(0%, rgba(181,11,224,1)), color-stop(100%, rgba(39,230,99,1)));
+background: -webkit-linear-gradient(left, rgba(181,11,224,1) 0%, rgba(39,230,99,1) 100%);
+background: -o-linear-gradient(left, rgba(181,11,224,1) 0%, rgba(39,230,99,1) 100%);
+background: -ms-linear-gradient(left, rgba(181,11,224,1) 0%, rgba(39,230,99,1) 100%);
+background: linear-gradient(to right, rgba(181,11,224,1) 0%, rgba(39,230,99,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b50be0', endColorstr='#27e663', GradientType=1 );">
+	<div class="container text-center" role="main" style="text-shadow: 2px 0 0 #fff, -2px 0 0 #fff, 0 2px 0 #fff, 0 -2px 0 #fff, 1px 1px #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff;">
+		<h1 style="font-family: 'Ultra', serif; font-size: 200%;"> AIBM </h1>
+		<h3 style="font-family: 'Ultra', serif; font-size: 200%;"> Artificial "Intelligence" for Business Managers </h3>
+
+		<div class="container" style="font-size: 200%; font-family: 'Bangers'; color:darkred;">
+			<span id="content"></span>
+		</div>
+		<div ckass="container">
+			<button class="btn btn-primary btn-lg" onclick="start()"><span class="glyphicon glyphicon-refresh"></span> Start</button>
+		</div>
+	</div>
+	<script>
+	var opener = [//Openers
+		"Hay que tener en cuenta que ",
+		"Realmente ",
+		"Lo cierto es que ",
+		"Basicamente, ",
+		"de lo que hablamos es de que ",
+		"En realidad, ",
+		"Podemos decir que "
+	]
+	var pet = [//pet phrases
+		"... Esto es asi.",
+		"... ¿No?",
+		"... ¿Me sigues?",
+		". Hasta aqui estamos de acuerdo.",
+		" basicamente."
+	]
+	var link = [//link phrases
+		", porque al final ",
+		", porque claro, ",
+		", teniendo siempre en cuenta que ",
+		" y claro, ..., pues al final ",
+		". Ahora bien, ",
+		". Esto es: ",
+		", partiendo de que ",
+		". Basicamente, ",
+		". Por eso mismo, ",
+		". Todo esto sin olvidar que "
+		//con esto se busca que
+	]
+
+	var modifier = [
+		" que presentamos",
+		" actual",
+		" mas importante"
+	]
+
+	var noun = [
+		"un pruf of concept",
+		"el i o te",
+		"el big data",
+		"un cliente",
+		"un asset",
+		"la realidad",
+		"el camino",
+		"el jeadmounted displey"
+
+	]
+
+	var adjective = [
+		" virtual",
+		" ineficiente",
+		" estrategico",
+		" simulado",
+		" que no se ve",
+		" de los datos"
+	]
+
+	var verb1 = [
+		" es",
+		" parece",
+		" resulta",
+		" quiere ser"
+	]
+
+	var verb2 = [
+		" puede simular",
+		" busca",
+		" busca generar",
+		" necesita"
+	]
+
+	var complement1 = [
+		" un software",
+		" estrategico",
+		" ineficiente",
+		" lo que no se ve",
+		" virtual",
+		" simulado",
+		" el futuro"
+	]
+
+	var complement2 = [
+		" un software",
+		" estrategia",
+		" ineficiencia",
+		" lo que no se ve",
+		" la realidad",
+		" una simulacion",
+		" el futuro"
+	]
+
+	var fullsubject = [
+		"el camino de los datos",
+		"un cliente estrategico",
+		"el big data ineficiente",
+		"el wow effect",
+		"el jeadmounted displey",
+		"la realidad virtual"
+	]
+
+	function start(){
+		var speech = generateSpeech(0);//Math.random()*3);
+		write(speech);
+		speak(speech);
+	}
+
+	function generateSpeech(num){
+		if(num==0)
+			return AltPhrase();
+		else if(num==1)
+			return PhraseTrick();
+		else{
+			return Phrase()+Link(0.9)+generateSpeech(num-1);
+		}
+	}
+
+	function Phrase(probability=1){
+		if (isMet(probability))
+			return Opener(0.3)+ Subject()+ Action()+ Reiteration(0.1)+ PetPhrase(0.2);
+		else
+			return "";
+	}
+
+	function PhraseTrick(probability=1){
+		if (isMet(probability))
+			return Opener(0.3)+ choose(FullSubject(),0.7,Subject())+ Action()+ Reiteration(0.1)+ PetPhrase(0.2);
+		else
+			return "";
+	}
+
+	function AltPhrase(probability=1){
+		if (isMet(probability))
+			return Opener(0.3)+ choose(FullSubject(),0.7,Subject())+ Action()+
+					choose(choose(Link()+Action(),0.5, PetPhrase()),0.2,"");
+		else
+			return "";
+	}
+
+	function Reiteration(probability=1){
+		if (isMet(probability))
+			return " "+ Opener()+ Action();
+		else
+			return "";
+	}
+
+	function Subject(probability=1){
+		if (isMet(probability))
+			return Noun()+ Adjective(0.8)+ Modifier(0.1);
+		else
+			return "";
+	}
+
+	function Action(probability=1){
+		var conjugation = randomConjugation();
+		if (isMet(probability))
+			return Verb(conjugation)+ Complement(conjugation);
+		else 
+			return "";
+	}
+
+	//////////////////////////////////////////////////////
+	
+	function Verb(conjugation, probability=1){
+		if(isMet(probability)){
+			switch (conjugation) {
+				case 0:
+					return pickRandom(verb1);
+					break;
+				default:
+					return pickRandom(verb2);
+					break;
+			}
+		}else
+			return "";
+	}
+	
+	function Complement(conjugation, probability=1){
+		if(isMet(probability)){
+			switch (conjugation) {
+				case 0:
+					return pickRandom(complement1);
+					break;
+				default:
+					return pickRandom(complement2);
+					break;
+			}
+		}else
+			return "";
+	}
+
+	//////////////////////////////////////////////////////
+
+	function Link(probability=1){
+		return (isMet(probability))? pickRandom(link) : " ";
+	}
+
+	function Opener(probability=1){
+		return (isMet(probability))? pickRandom(opener) : "";
+	}
+
+	function PetPhrase(probability=1){
+		return (isMet(probability))? pickRandom(pet) : "";
+	}
+	
+	function Noun(probability=1){
+		return (isMet(probability))? pickRandom(noun) : "";
+	}
+
+	function Adjective(probability=1){
+		return (isMet(probability))? pickRandom(adjective) : "";
+	}
+
+	function Modifier(probability=1){
+		return (isMet(probability))? pickRandom(modifier) : "";
+	}
+
+	function FullSubject(probability=1){
+		return (isMet(probability))? pickRandom(fullsubject) : "";
+	}
+
+	//////////////////////////////////////////////////////
+	
+	function randomConjugation(){
+		return Math.floor(Math.random()*2);
+	}
+	
+	function choose(optiona,probability=1,optionb=""){
+		return (isMet(probability))?optiona:optionb;
+	}
+
+	function isMet(probability){
+		return (probability == 1 || Math.random()<=probability);
+	}
+
+	function pickRandom(collection) {
+		return collection[Math.floor(Math.random()*collection.length)];
+	}
+
+	function write(msg){//TODO!
+		$('#content').html(msg);
+	}
+
+	function speak(msg){
+		var utterance = new SpeechSynthesisUtterance(msg);
+		utterance.lang = 'es';
+		//utterance.voice = window.speechSynthesis.getVoices()[38];
+		utterance.pitch = 0.3;
+		utterance.rate = 0.85;
+		window.speechSynthesis.speak(utterance);
+	}
+	</script>
+</body>
+</html>
